@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        document.getElementById('exampleNewsSiteForm').onsubmit = function() {
+            let template = document.getElementById('template').value;
+            chrome.storage.local.set({exampleNewsSiteTemplate: template}, function() {
+                alert('Settings saved.');
+            });
+            return false;
+        };
+    </script>
+</head>
+<body>
+    <h1>Settings</h1>
+    <form id="exampleNewsSiteForm">
+        <h2>Example News Site</h2>
+        <label for="template">Template:</label><br>
+        <textarea id="template" name="template" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Save">
+    </form>
+    <!-- Add a form for each news site -->
+</body>
+</html>

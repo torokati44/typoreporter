@@ -4,6 +4,9 @@
     "version": "1.0",
     "description": "Report typos or factual errors in articles",
     "permissions": ["contextMenus", "activeTab"],
+    "options_ui": {
+        "page": "settings.html"
+    },
     "background": {
         "scripts": ["background.js"]
     },
