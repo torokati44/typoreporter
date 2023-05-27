@@ -6,6 +6,21 @@ function scrapePage() {
     return {title: title, authorName: authorName, authorEmail: authorEmail};
 }
 
+
+// Get the current news site
+let newsSite = window.location.hostname;
+// Get the template for this site
+chrome.storage.local.get([newsSite], function(result) {
+    let templateName = result[newsSite];
+    // Get the template
+    chrome.storage.local.get([templateName], function(result) {
+        let template = result[templateName];
+        // Use the template
+        //...
+    });
+});
+
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.text === 'report_error') {

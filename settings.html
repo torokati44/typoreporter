@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="sites.js"></script>
     <script>
-        document.getElementById('exampleNewsSiteForm').onsubmit = function() {
+        // When the news sites form is submitted
+        document.getElementById('newsSitesForm').onsubmit = function() {
+            let newsSite = document.getElementById('newsSite').value;
+            addNewsSite(newsSite);
+            return false;
+        };
+
+        // When the templates form is submitted
+        document.getElementById('templatesForm').onsubmit = function() {
+            let templateName = document.getElementById('templateName').value;
             let template = document.getElementById('template').value;
-            chrome.storage.local.set({exampleNewsSiteTemplate: template}, function() {
-                alert('Settings saved.');
-            });
+            addTemplate(templateName, template);
             return false;
         };
     </script>
 </head>
 <body>
     <h1>Settings</h1>
-    <form id="exampleNewsSiteForm">
-        <h2>Example News Site</h2>
+
+    <!-- Form for news sites -->
+    <form id="newsSitesForm">
+        <h2>News Sites</h2>
+        <input type="text" id="newsSite" placeholder="Enter news site URL...">
+        <input type="submit" value="Add">
+    </form>
+
+    <!-- Form for templates -->
+    <form id="templatesForm">
+        <h2>Templates</h2>
+        <label for="templateName">Name:</label><br>
+        <input type="text" id="templateName"><br>
         <label for="template">Template:</label><br>
-        <textarea id="template" name="template" rows="4" cols="50"></textarea><br>
+        <textarea id="template" rows="4" cols="50"></textarea><br>
         <input type="submit" value="Save">
     </form>
-    <!-- Add a form for each news site -->
 </body>
 </html>
