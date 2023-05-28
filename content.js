@@ -279,12 +279,20 @@ browser.storage.local.get([newsSite], function(result) {
 });
 */
 
+if (typeof chrome !== "undefined") {
+    browser = chrome;
+}
+
 browser.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.text === 'report_error') {
             let scrapedData = scrapePage();
             let mailtoUrl = `mailto:${scrapedData.authorEmail}?subject=Error%20in%20Article%20-%20${encodeURIComponent(scrapedData.title)}&body=Dear%20${encodeURIComponent(scrapedData.authorName)},%0A%0AI%20noticed%20an%20error%20in%20your%20article%20titled%20"${encodeURIComponent(scrapedData.title)}".%0A%0AHere%20is%20the%20mistake:%0A"${encodeURIComponent(request.selection)}"%0A%0AHere%20is%20my%20suggestion%20for%20improvement:%0A%0A%5BYour%20Suggestion%20Here%5D%0A%0ABest%20regards,%0A%0A[Your%20Name%20Here]`;
-            window.location.href = mailtoUrl;
+            // window.open(mailtoUrl, "_blank"); does not work in FF
+            let link = document.createElement("a");
+            link.setAttribute("href", mailtoUrl);
+            link.setAttribute("target", "_blank");
+            link.click();
         }
     }
 );
